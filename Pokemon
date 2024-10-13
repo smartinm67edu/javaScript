@@ -1,0 +1,146 @@
+class Move {
+  constructor(name, baseDamage) {
+    this.name = name;
+    this.baseDamage = baseDamage;
+  }
+}
+
+const Type = {
+  FUEGO: 'Fuego',
+  AGUA: 'Agua',
+  PLANTA: 'Planta',
+  ELECTRICO: 'Electrico',
+  VOLADOR: 'Volador'
+};
+class Pokemon {
+  constructor(name, type, hpMax, attack, defense, moves) {
+    this.name = name;
+    this.type = type;
+    this.hp = hpMax;
+    this.hpMax = hpMax;
+    this.attack = attack;
+    this.defense = defense;
+    this.moves = moves;
+    this.healUsed = false;
+  }
+
+  // Metodo para atacar al oponente usando un movimiento
+  attackOpponent(opponent, moveIndex) {
+    const move = this.moves[moveIndex];
+    if (!move) {
+      console.log(`${this.name} intenta usar un movimiento que no tiene.`);
+      return;
+    }
+    
+    const damage = Math.max(0, move.baseDamage + this.attack - opponent.defense);
+    console.log(`${this.name} usa ${move.name} y causa ${damage} puntos de dano a ${opponent.name}.`);
+    opponent.hp -= damage;
+    if (opponent.hp <= 0) {
+      opponent.hp = 0;
+      console.log(`${opponent.name} ha sido derrotado.`);
+    } else {
+      console.log(`${opponent.name} tiene ${this.getHealthBar(opponent.hp, opponent.hpMax)} (${opponent.hp}/${opponent.hpMax}) puntos de vida restantes.`);
+    }
+  }
+
+  // Metodo para curar al Pokemon
+  heal() {
+    const healAmount = Math.floor(this.hpMax * 0.5);
+    this.hp = Math.min(this.hp + healAmount, this.hpMax);
+    this.healUsed = true;
+    console.log(`${this.name} se cura ${healAmount} puntos de vida. Ahora tiene ${this.getHealthBar(this.hp, this.hpMax)} (${this.hp}/${this.hpMax}) puntos de vida.`);
+  }
+
+  
+  getHealthBar(hp, hpMax) {
+    const totalBars = 20;
+    const filledBars = Math.round((hp / hpMax) * totalBars);
+    const emptyBars = totalBars - filledBars;
+    return `[${'#'.repeat(filledBars)}${'-'.repeat(emptyBars)}]`;
+  }
+}
+
+// Crear movimientos
+const thunderShock = new Move('Impactrueno', 20);
+const ember = new Move('Ascuas', 15);
+const waterGun = new Move('Pistola Agua', 18);
+const vineWhip = new Move('Latigo Cepa', 22);
+const quickAttack = new Move('Ataque Rapido', 18);
+const flameThrower = new Move('Lanzallamas', 25);
+const hydroPump = new Move('Hidro Bomba', 30);
+const razorLeaf = new Move('Hoja Afilada', 24);
+const thunderbolt = new Move('Rayo', 28);
+const fireBlast = new Move('Anillo de Fuego', 32);
+const bubbleBeam = new Move('Rayo Burbuja', 20);
+const solarBeam = new Move('Rayo Solar', 35);
+
+let pokemons = [];
+
+// Anadir Pokemon a la lista con 3 movimientos cada uno
+pokemons.push(new Pokemon('Pikachu', Type.ELECTRIC, 100, 20, 10, [thunderShock, quickAttack, thunderbolt]));
+pokemons.push(new Pokemon('Raichu', Type.ELECTRIC, 130, 25, 15, [thunderShock, quickAttack, thunderbolt]));
+pokemons.push(new Pokemon('Charmander', Type.FIRE, 120, 15, 12, [ember, flameThrower, quickAttack]));
+pokemons.push(new Pokemon('Vulpix', Type.FIRE, 110, 18, 10, [ember, flameThrower, fireBlast]));
+pokemons.push(new Pokemon('Squirtle', Type.WATER, 110, 18, 14, [waterGun, hydroPump, quickAttack]));
+pokemons.push(new Pokemon('Psyduck', Type.WATER, 115, 17, 12, [waterGun, bubbleBeam, hydroPump]));
+pokemons.push(new Pokemon('Bulbasaur', Type.GRASS, 130, 16, 15, [vineWhip, razorLeaf, quickAttack]));
+pokemons.push(new Pokemon('Oddish', Type.GRASS, 125, 15, 13, [vineWhip, razorLeaf, solarBeam]));
+
+// Seleccion automatica de Pokemon para el jugador y la maquina
+const playerPokemon = pokemons[Math.floor(Math.random() * pokemons.length)];
+let availablePokemons = pokemons.filter(pokemon => pokemon !== playerPokemon);
+const machinePokemon = availablePokemons[Math.floor(Math.random() * availablePokemons.length)];
+
+console.log(`
+Has sido asignado a ${playerPokemon.name}. La maquina ha elegido a ${machinePokemon.name}.
+`);
+
+// Libreria para entradas del usuario
+const readlineSync = require('readline-sync');
+
+// Simulamos la batalla
+function battle(pokemon1, pokemon2) {
+  let turn = 0;
+  while (pokemon1.hp > 0 && pokemon2.hp > 0) {
+    console.log(`\nTurno ${turn + 1}:`);
+    if (turn % 2 === 0) {
+      console.log(`Es el turno de ${pokemon1.name}.`);
+      console.log('Elige una accion: (1) Atacar, (2) Curarse:');
+      let action = readlineSync.question('Introduce el numero de la accion: ');
+      if (action === '1') {
+        console.log('Elige un movimiento:');
+        pokemon1.moves.forEach((move, index) => {
+          console.log(`${index}: ${move.name} (Dano base: ${move.baseDamage})`);
+        });
+        let moveIndex = readlineSync.question('Introduce el numero del movimiento: ');
+        if (!isNaN(moveIndex) && moveIndex >= 0 && moveIndex < pokemon1.moves.length) {
+          pokemon1.attackOpponent(pokemon2, parseInt(moveIndex));
+        } else {
+          console.log('Movimiento no valido. Pierdes tu turno.');
+        }
+      } else if (action === '2') {
+        pokemon1.heal();
+      } else {
+        console.log('Accion no valida. Pierdes tu turno.');
+      }
+    } else {
+      console.log(`Es el turno de ${pokemon2.name}.`);
+      if (pokemon2.hp <= pokemon2.hpMax / 2 && !pokemon2.healUsed) {
+        pokemon2.heal();
+      } else {
+        const moveIndex = Math.floor(Math.random() * pokemon2.moves.length);
+        pokemon2.attackOpponent(pokemon1, moveIndex);
+      }
+    }
+    turn++;
+  }
+
+  if (pokemon1.hp > 0) {
+    console.log(`\n${pokemon1.name} gana la batalla!`);
+  } else {
+    console.log(`\n${pokemon2.name} gana la batalla!`);
+  }
+}
+
+// Iniciar la batalla 
+battle(playerPokemon, machinePokemon);
