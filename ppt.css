@@ -1,0 +1,22 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    background-color: rgb(220, 238, 232);
+}
+button {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;      
+    font-size: 24px;         
+    border: none;            
+    cursor: pointer;         
+    
+  }
+.botones{
+    border: solid black;
+    border-radius: 25%;
+    padding: 10px;
+}
