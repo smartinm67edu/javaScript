@@ -4,23 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Juego del Ahorcado</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="ahorcado.css">
 </head>
 <body>
-  <h1>Juego del Ahorcado</h1>
+  <div class="container">
+    <header>
+      <h1>Juego del Ahorcado</h1>
+    </header>
 
-  <!-- Muestra la palabra oculta con guiones -->
-  <p id="wordDisplay">Palabra: _ _ _ _ _</p>
+    <main>
+      <!-- Muestra la palabra oculta con guiones -->
+      <div class="display">
+        <p id="wordDisplay">Palabra: _ _ _ _ _</p>
+        <!-- Muestra la cantidad de intentos restantes -->
+        <p id="guesses">Intentos restantes: 6</p>
+      </div>
 
-  <!-- Muestra la cantidad de intentos restantes -->
-  <p id="guesses">Intentos restantes: 6</p>
+      <!-- Mensaje informativo o de estado -->
+      <p id="message"></p>
 
-  <!-- Mensaje informativo o de estado -->
-  <p id="message"></p>
+      <!-- Campo de entrada para letras y botón para adivinar -->
+      <div class="input-container">
+        <input type="text" id="letterInput" maxlength="1" placeholder="Ingresa una letra" autocomplete="off">
+        <button onclick="guessLetter()">Adivinar</button>
+      </div>
 
-  <!-- Campo de entrada para letras y botón para adivinar -->
-  <input type="text" id="letterInput" maxlength="1" placeholder="Ingresa una letra">
-  <button onclick="guessLetter()">Adivinar</button>
+      <!-- Sección de los emojis que se transforman en cruces -->
+      <div class="cuerpo">
+        <button class="emoji">😙</button>
+        <button class="emoji">🙎‍♂️</button>
+        <button class="emoji">🦾</button>
+        <button class="emoji">💪</button>
+        <button class="emoji">🦿</button>
+        <button class="emoji">🦵</button>
+      </div>
+
+      <!-- Emoji de calavera en grande que aparece cuando pierdes -->
+      <div id="emojiGrande" style="display: none; font-size: 100px; margin-top: 20px;"></div>
+    </main>
+  </div>
 
   <script src="ahorcado.js"></script>
 </body>
