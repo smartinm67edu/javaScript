@@ -1,5 +1,6 @@
 let carrito = [];
 let total = 0;
+let array = [0, 0, 0, 0]; // Inicializa el array con valores de ejemplo, incluyendo la posición 3
 
 // Función para guardar el carrito en localStorage
 function guardarCarrito() {
@@ -11,20 +12,31 @@ function cargarCarrito() {
     let carritoGuardado = localStorage.getItem("carrito");
     if (carritoGuardado) {
         carrito = JSON.parse(carritoGuardado); // Convertir de JSON a array
-        mostrarCarrito(); // Actualizar la vista del carrito
-        calcularTotal();  // Calcular el total de nuevo
+        mostrarCarrito(); 
+        calcularTotal();  
     }
 }
 
 // Función para agregar productos al carrito
-function agregarAlCarrito(nombre, precio) {
-    // Añadir producto al arreglo del carrito
-    carrito.push({ nombre, precio });
+function agregarAlCarrito(nombre, precio, cantidad) {
+    let carritoGuardado = localStorage.getItem("carrito") ? JSON.parse(localStorage.getItem("carrito")) : [];
 
-    // Guardar el carrito en localStorage
+    // Si el producto ya está en carritoGuardado
+    if (carritoGuardado.some(item => item.nombre === nombre)) {
+        array[3] += 1;
+        const productoExistente = carrito.find(item => item.nombre === nombre);
+        
+        if (productoExistente) {
+            productoExistente.cantidad += cantidad;
+        } else {
+            carrito.push({ nombre, precio, cantidad });
+        }
+    } else {
+        carrito.push({ nombre, precio, cantidad });
+    }
+
+    // Guardar el carrito y actualizar la interfaz
     guardarCarrito();
-
-    // Actualizar el carrito en la página
     mostrarCarrito();
     calcularTotal();
 }
@@ -35,30 +47,31 @@ function mostrarCarrito() {
     carritoDiv.innerHTML = '';
 
     carrito.forEach((producto, index) => {
-        carritoDiv.innerHTML += `<p>${producto.nombre} - ${producto.precio}€ <button onclick="eliminarDelCarrito(${index})">Eliminar</button></p>`;
+        carritoDiv.innerHTML += `<p>${producto.nombre} - ${producto.precio}€ - ${producto.cantidad} <button onclick="eliminarDelCarrito(${index})">Eliminar</button></p>`;
     });
 }
 
 // Función para eliminar un producto del carrito
 function eliminarDelCarrito(indice) {
-    // Eliminar producto del carrito
     carrito.splice(indice, 1);
-
-    // Guardar el carrito actualizado en localStorage
     guardarCarrito();
-
-    // Actualizar la vista del carrito
     mostrarCarrito();
     calcularTotal();
 }
 
 // Función para calcular el total del carrito
 function calcularTotal() {
-    total = carrito.reduce((sum, producto) => sum + producto.precio, 0);
-    document.getElementById('total').textContent = total;
+    // Calcula el total sumando el precio por la cantidad de cada producto
+    total = carrito.reduce((sum, producto) => sum + (producto.precio * producto.cantidad), 0); 
+
+    // Guarda el total en una cookie con una expiración de 7 días
+    document.cookie = `total=${total}; path=/; max-age=${7 * 24 * 60 * 60}`;
+
+    // Actualiza el elemento del DOM con el total
+    document.getElementById('total').textContent = `Total: ${total}€`;
 }
 
 // Llamar a la función de cargar carrito al inicio
 window.onload = function() {
     cargarCarrito();
-};
+};1
