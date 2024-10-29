@@ -19,8 +19,8 @@ function actualizarEmojis() {
 }
 
 function mostrarEmojiPerdedor() {
-  document.getElementById("emojiGrande").textContent = "💀"; // Mostrar el emoji de calavera en grande
-  document.getElementById("emojiGrande").style.display = "block"; // Hacer visible el emoji
+  document.getElementById("emojiGrande").textContent = "💀"; 
+  document.getElementById("emojiGrande").style.display = "block"; 
 }
 
 function guessLetter() {
@@ -65,7 +65,7 @@ function guessLetter() {
   if (intentosRestantes === 0) {
     document.getElementById("message").textContent = `¡Perdiste! La palabra era "${palabraSecreta}".`;
     document.getElementById("letterInput").disabled = true;
-    mostrarEmojiPerdedor(); // Mostrar el emoji de calavera cuando se pierden todos los intentos
+    mostrarEmojiPerdedor(); // Mostrar el emoji de calavera si ha perdido
   } else if (!palabraGuiones.includes("_")) {
     document.getElementById("message").textContent = "¡Felicidades! Has adivinado la palabra.";
     document.getElementById("letterInput").disabled = true;

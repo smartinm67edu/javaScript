@@ -1,82 +1,161 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito de Compras</title>
     <style>
-        body{
+        body {
             text-align: center;
         }
-        div{
+
+        .contenedores {
+            display: flex;
+            height: 100vh;
+        }
+
+        .container1 {
+            width: 19%;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container3 {
+            width: 19%;
+        }
+
+        .container2 div {
             text-align: center;
             display: inline-block;
         }
-        #productos{
+
+        #productos {
             background-color: rgb(244, 215, 205);
             border-radius: 15%;
-            padding: 15px;
+            padding: 150px;
         }
-        button{
+
+        .tachado {
+            text-decoration: line-through;
+        }
+
+        .parpadeante {
+            color: black;
+            border: 2px solid red;
+            padding: 5px;
+            margin-right: 40%;
+            margin-left: 40%;
+            animation: parpadeo 1s infinite;
+        }
+
+        @keyframes parpadeo {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+
+
+        button {
             background-color: orangered;
             border-radius: 15%;
             padding: 4px;
         }
-        h1{
-            color: orange;
-            background-color: rgb(233, 181, 162);
-        }
 
+        h1 {
+            background-color: rgb(233, 181, 162);
+            font-style: italic;
+        }
     </style>
 </head>
+
 <body>
     <h1>Tienda</h1>
-    
+    <div class="contenedores">
+        <div class="container1">
+            <div class="ofertas">
+                <img src="200x250.jpg" alt="">
+                <h3>Producto 1</h3>
+                <p class="tachado">Precio: 100€</p>
+                <p class="parpadeante">Precio: 80€</p>
+                <button onclick="agregarAlCarrito('Producto 1', 80)">Añadir al carrito</button>
+            </div>
+            <div>
+                <img src="200x250.jpg" alt="">
+                <h3>Producto 2</h3>
+                <p class="tachado">Precio: 200€</p>
+                <p class="parpadeante">Precio: 160€</p>
+                <button onclick="agregarAlCarrito('Producto 2', 160)">Añadir al carrito</button>
+            </div>
+            <div>
+                <img src="200x250.jpg" alt="">
+                <h3>Producto 3</h3>
+                <p class="tachado">Precio: 150€</p>
+                <p class="parpadeante">Precio: 120€</p>
+                <button onclick="agregarAlCarrito('Producto 3', 120)">Añadir al carrito</button>
+            </div>
+        </div>
+        <div class="container2">
+            <div id="productos">
+                <div>
+                    <img src="200x250.jpg" alt="">
+                    <h3>Producto 1</h3>
+                    <p>Precio: 100€</p>
+                    <button onclick="agregarAlCarrito('Producto 1', 100)">Añadir al carrito</button>
+                </div>
+                <div>
+                    <img src="200x250.jpg" alt="">
+                    <h3>Producto 2</h3>
+                    <p>Precio: 200€</p>
+                    <button onclick="agregarAlCarrito('Producto 2', 200)">Añadir al carrito</button>
+                </div>
+                <div>
+                    <img src="200x250.jpg" alt="">
+                    <h3>Producto 3</h3>
+                    <p>Precio: 150€</p>
+                    <button onclick="agregarAlCarrito('Producto 3', 150)">Añadir al carrito</button>
+                </div>
+                <div>
+                    <img src="200x250.jpg" alt="">
+                    <h3>Producto 4</h3>
+                    <p>Precio: 150€</p>
+                    <button onclick="agregarAlCarrito('Producto 4', 150)">Añadir al carrito</button>
+                </div>
+                <div>
+                    <img src="200x250.jpg" alt="">
+                    <h3>Producto 5</h3>
+                    <p>Precio: 300€</p>
+                    <button onclick="agregarAlCarrito('Producto 5', 300)">Añadir al carrito</button>
+                </div>
+                <div>
+                    <img src="200x250.jpg" alt="">
+                    <h3>Producto 6</h3>
+                    <p>Precio: 250€</p>
+                    <button onclick="agregarAlCarrito('Producto 6', 250)">Añadir al carrito</button>
+                </div>
+            </div>
+            <!-- Carrito de compras -->
+            <h2>Carrito de Compras</h2>
+            <div id="carrito"></div>
+            <p>Total: $<span id="total">0</span></p>
 
-    <div id="productos">
-        <div class="opciones">
-            <img src="200x250.jpg" alt="">
-            <h3>Producto 1</h3>
-            <p>Precio: 100€</p>
-            <button onclick="agregarAlCarrito('Producto 1', 10)">Añadir al carrito</button>
+            <script src="carrito.js"></script>
         </div>
-        <div>
-            <img src="200x250.jpg" alt="">
-            <h3>Producto 2</h3>
-            <p>Precio: 100€</p>
-            <button onclick="agregarAlCarrito('Producto 2', 20)">Añadir al carrito</button>
-        </div>
-        <div>
-            <img src="200x250.jpg" alt="">
-            <h3>Producto 3</h3>
-            <p>Precio: 100€</p>
-            <button onclick="agregarAlCarrito('Producto 3', 15)">Añadir al carrito</button>
-        </div>
-        <div>
-            <img src="200x250.jpg" alt="">
-            <h3>Producto 4</h3>
-            <p>Precio: 100€</p>
-            <button onclick="agregarAlCarrito('Producto 4', 15)">Añadir al carrito</button>
-        </div>
-        <div>
-            <img src="200x250.jpg" alt="">
-            <h3>Producto 5</h3>
-            <p>Precio: 100€</p>
-            <button onclick="agregarAlCarrito('Producto 5', 15)">Añadir al carrito</button>
-        </div>
-        <div>
-            <img src="200x250.jpg" alt="">
-            <h3>Producto 6</h3>
-            <p>Precio: 100€</p>
-            <button onclick="agregarAlCarrito('Producto 6', 15)">Añadir al carrito</button>
+        <div class="container3">
+
         </div>
     </div>
 
-    <!-- Carrito de compras -->
-    <h2>Carrito de Compras</h2>
-    <div id="carrito"></div>
-    <p>Total: $<span id="total">0</span></p>
 
-    <script src="carrito.js"></script>
 </body>
+
 </html>

@@ -35,7 +35,7 @@ function mostrarCarrito() {
     carritoDiv.innerHTML = '';
 
     carrito.forEach((producto, index) => {
-        carritoDiv.innerHTML += `<p>${producto.nombre} - $${producto.precio} <button onclick="eliminarDelCarrito(${index})">Eliminar</button></p>`;
+        carritoDiv.innerHTML += `<p>${producto.nombre} - ${producto.precio}€ <button onclick="eliminarDelCarrito(${index})">Eliminar</button></p>`;
     });
 }
 
