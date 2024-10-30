@@ -19,18 +19,3 @@
     align-items: center;
     justify-content: center;
 }
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Crea columnas adaptativas */
-    grid-template-rows: repeat(auto-fill, minmax(100px, 1fr)); /* Crea filas adaptativas */
-    gap: 10px; /* Espacio entre los cuadrados */
-    height: 100vh;
-    width: 100vw;
-}
-
-.grid-item {
-    background-color: #4CAF50; /* Color de los cuadrados */
-    aspect-ratio: 1 / 1; /* Mantiene los divs como cuadrados */
-    border-radius: 5px; /* Opcional: bordes redondeados */
-}
-
