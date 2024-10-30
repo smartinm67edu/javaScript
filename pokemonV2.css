@@ -1,0 +1,13 @@
+.contenedores {
+    display: flex;
+    width: 100vh;
+    
+}
+
+.combate {
+    width: 19%;
+    flex-direction: column;
+    align-items: center;
+    background-color: brown;
+}
+
