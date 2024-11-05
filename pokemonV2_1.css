@@ -1,9 +1,14 @@
 body {
+    display: flex;
+    flex-direction: column; /* Para alinear el contenido en columna */
+    align-items: center; /* Centra horizontalmente */
+    justify-content: center; /* Centra verticalmente */
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: #f0f8ff;
-    width: 80%;
-    align-items: center;
+    width: 70%;
+    min-height: 100vh; /* Asegura que ocupe toda la altura de la pantalla */
+    margin: 0 auto; /* Centra el body en la pantalla */
 }
 
 .pokemon-list {
