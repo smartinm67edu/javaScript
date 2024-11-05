@@ -1,0 +1,46 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f8ff;
+}
+
+.pokemon-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px;
+}
+
+.pokemon-card {
+    display: flex; /* Hacer que cada tarjeta sea un contenedor flex */
+    flex-direction: column; /* Orientación vertical de los elementos */
+    justify-content: space-between; /* Espacio entre la imagen y el botón */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    width: 150px;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pokemon-card img {
+    width: 80px;
+    height: auto;
+}
+
+.pokemon-card button {
+    margin-top: auto; /* Empuja el botón hacia la parte inferior de la tarjeta */
+    padding: 5px;
+    background-color: #774caf;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.atributes {
+    display: flex;
+    flex-direction: column;
+}
