@@ -3,9 +3,10 @@ body {
     flex-direction: column; /* Para alinear el contenido en columna */
     align-items: center; /* Centra horizontalmente */
     justify-content: center; /* Centra verticalmente */
-    font-family: Arial, sans-serif;
+    font-family: calibri ;
     text-align: center;
-    background-color: #f0f8ff;
+    background-color: #7095b6;
+    font-size: large;
     width: 70%;
     min-height: 100vh; /* Asegura que ocupe toda la altura de la pantalla */
     margin: 0 auto; /* Centra el body en la pantalla */
@@ -28,6 +29,7 @@ body {
     padding: 10px;
     width: 150px;
     text-align: center;
+    align-items: center;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -50,4 +52,5 @@ body {
 .atributes {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }

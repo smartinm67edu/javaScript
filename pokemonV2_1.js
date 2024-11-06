@@ -151,14 +151,21 @@ const pokemons = [
     { id: 150, name: "Mewtwo", img: "https://projectpokemon.org/images/normal-sprite/mewtwo.gif", types: ["Psychic"], attack: 110, defense: 90, hp: 106 },
     { id: 151, name: "Mew", img: "https://projectpokemon.org/images/normal-sprite/mew.gif", types: ["Psychic"], attack: 100, defense: 100, hp: 100 }
 ];
+pokemons.forEach(pokemon => {
+    pokemon.shinyImg = pokemon.img.replace("normal-sprite", "shiny-sprite");
+});
+console.log(pokemons);
+
 window.onload = function() {
     const pokemonList = document.getElementById("pokemonList");
     pokemons.forEach(pokemon => {
+        const imageUrl = pokemon.isShiny ? pokemon.shinyImg : pokemon.img;
+
         const pokemonCard = document.createElement("div");
         pokemonCard.className = "pokemon-card";
         pokemonCard.innerHTML = `
-            <h3>${pokemon.name}</h3>
-            <img src="${pokemon.img}" alt="${pokemon.name}">
+            <h3>${pokemon.name} ${pokemon.isShiny ? "(Shiny)" : ""}</h3>
+            <img src="${imageUrl}" alt="${pokemon.name}">
             <p>Tipos: ${pokemon.types.join(", ")}</p>
             <p>Ataque: ${pokemon.attack}</p>
             <p>Defensa: ${pokemon.defense}</p>
@@ -172,9 +179,11 @@ window.onload = function() {
 function seleccionarPokemon(id) {
     const pokemon = pokemons.find(p => p.id === id);
     if (pokemon) {
+        const imageUrl = pokemon.isShiny ? pokemon.shinyImg : pokemon.img;
+
         document.getElementById("detallesPokemon").innerHTML = `
-            <h2>${pokemon.name}</h2>
-            <img src="${pokemon.img}" alt="${pokemon.name}">
+            <h2>${pokemon.name} ${pokemon.isShiny ? "(Shiny)" : ""}</h2>
+            <img src="${imageUrl}" alt="${pokemon.name}">
             <p>Tipos: ${pokemon.types.join(", ")}</p>
             <p>Ataque: ${pokemon.attack}</p>
             <p>Defensa: ${pokemon.defense}</p>
@@ -185,5 +194,7 @@ function seleccionarPokemon(id) {
 
 function seleccionarOponente() {
     const oponente = pokemons[Math.floor(Math.random() * pokemons.length)];
-    alert(`El oponente es: ${oponente.name}`);
+    const imageUrl = oponente.isShiny ? oponente.shinyImg : oponente.img;
+
+    alert(`El oponente es: ${oponente.name} ${oponente.isShiny ? "(Shiny)" : ""}`);
 }
