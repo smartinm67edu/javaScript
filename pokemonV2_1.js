@@ -151,9 +151,6 @@ const pokemons = [
     { id: 150, name: "Mewtwo", img: "https://projectpokemon.org/images/normal-sprite/mewtwo.gif", types: ["Psychic"], attack: 110, defense: 90, hp: 106 },
     { id: 151, name: "Mew", img: "https://projectpokemon.org/images/normal-sprite/mew.gif", types: ["Psychic"], attack: 100, defense: 100, hp: 100 }
 ];
-pokemons.forEach(pokemon => {
-    pokemon.shinyImg = pokemon.img.replace("normal-sprite", "shiny-sprite");
-});
 console.log(pokemons);
 
 window.onload = function() {
