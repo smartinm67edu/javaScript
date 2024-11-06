@@ -173,6 +173,7 @@ window.onload = function() {
     });
 };
 
+
 function seleccionarPokemon(id) {
     const pokemon = pokemons.find(p => p.id === id);
     if (pokemon) {
