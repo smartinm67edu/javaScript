@@ -152,16 +152,21 @@ const pokemons = [
     { id: 151, name: "Mew", img: "https://projectpokemon.org/images/normal-sprite/mew.gif", types: ["Psychic"], attack: 100, defense: 100, hp: 100 }
 ];
 console.log(pokemons);
+pokemons.forEach(pokemon => {
+    pokemon.shinyImg = pokemon.img.replace("normal-sprite", "shiny-sprite");
+});
 
+console.log(pokemons);
 window.onload = function() {
     const pokemonList = document.getElementById("pokemonList");
     pokemons.forEach(pokemon => {
-        const imageUrl = pokemon.isShiny ? pokemon.shinyImg : pokemon.img;
+        const isShiny = Math.random() < 0.1; // 10% de probabilidad de que sea shiny
+        const imageUrl = isShiny && pokemon.shinyImg ? pokemon.shinyImg : pokemon.img;
 
         const pokemonCard = document.createElement("div");
         pokemonCard.className = "pokemon-card";
         pokemonCard.innerHTML = `
-            <h3>${pokemon.name} ${pokemon.isShiny ? "(Shiny)" : ""}</h3>
+            <h3>${pokemon.name} ${isShiny ? "(Shiny)" : ""}</h3>
             <img src="${imageUrl}" alt="${pokemon.name}">
             <p>Tipos: ${pokemon.types.join(", ")}</p>
             <p>Ataque: ${pokemon.attack}</p>
@@ -173,14 +178,14 @@ window.onload = function() {
     });
 };
 
-
 function seleccionarPokemon(id) {
     const pokemon = pokemons.find(p => p.id === id);
     if (pokemon) {
-        const imageUrl = pokemon.isShiny ? pokemon.shinyImg : pokemon.img;
+        const isShiny = Math.random() < 0.1; // 10% de probabilidad de que sea shiny
+        const imageUrl = isShiny && pokemon.shinyImg ? pokemon.shinyImg : pokemon.img;
 
         document.getElementById("detallesPokemon").innerHTML = `
-            <h2>${pokemon.name} ${pokemon.isShiny ? "(Shiny)" : ""}</h2>
+            <h2>${pokemon.name} ${isShiny ? "(Shiny)" : ""}</h2>
             <img src="${imageUrl}" alt="${pokemon.name}">
             <p>Tipos: ${pokemon.types.join(", ")}</p>
             <p>Ataque: ${pokemon.attack}</p>
@@ -192,7 +197,9 @@ function seleccionarPokemon(id) {
 
 function seleccionarOponente() {
     const oponente = pokemons[Math.floor(Math.random() * pokemons.length)];
-    const imageUrl = oponente.isShiny ? oponente.shinyImg : oponente.img;
+    const isShiny = Math.random() < 0.1; // 10% de probabilidad de que sea shiny
+    const imageUrl = isShiny && oponente.shinyImg ? oponente.shinyImg : oponente.img;
 
-    alert(`El oponente es: ${oponente.name} ${oponente.isShiny ? "(Shiny)" : ""}`);
+    alert(`El oponente es: ${oponente.name} ${isShiny ? "(Shiny)" : ""}`);
 }
+
