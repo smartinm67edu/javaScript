@@ -1,50 +1,20 @@
-let selectedPokemon; // Pokémon del jugador
-let opponentPokemon; // Pokémon del oponente
+const playerPokemon = JSON.parse(localStorage.getItem("playerPokemon"));
+const opponentPokemon = pokemons[Math.floor(Math.random() * pokemons.length)];
 
-// Actualiza la selección del jugador y pasa a VS
-function seleccionarPokemon(id) {
-    selectedPokemon = pokemons.find(p => p.id === id);
-    seleccionarOponente(); // Genera oponente automáticamente
-    mostrarPantallaVS();
-}
-
-// Generar oponente aleatorio
-function seleccionarOponente() {
-    opponentPokemon = pokemons[Math.floor(Math.random() * pokemons.length)];
-}
-
-// Mostrar pantalla VS
-function mostrarPantallaVS() {
-    const playerDiv = document.getElementById("playerPokemon");
-    const opponentDiv = document.getElementById("opponentPokemon");
-
-    // Detalles del Pokémon del jugador
-    playerDiv.innerHTML = `
-        <h3>${selectedPokemon.name}</h3>
-        <img src="${selectedPokemon.img}" alt="${selectedPokemon.name}">
-        <p>Tipos: ${selectedPokemon.types.join(", ")}</p>
+function showVsScreen() {
+    document.getElementById("playerPokemon").innerHTML = `
+        <h3>${playerPokemon.name} ${playerPokemon.isShiny ? "(Shiny)" : ""}</h3>
+        <img src="${playerPokemon.isShiny ? playerPokemon.shinyImg : playerPokemon.img}" alt="${playerPokemon.name}">
     `;
-
-    // Detalles del Pokémon del oponente
-    opponentDiv.innerHTML = `
+    document.getElementById("opponentPokemon").innerHTML = `
         <h3>${opponentPokemon.name}</h3>
         <img src="${opponentPokemon.img}" alt="${opponentPokemon.name}">
-        <p>Tipos: ${opponentPokemon.types.join(", ")}</p>
     `;
 
-    // Cambiar a la pantalla VS
-    goToScreen("pantalla-vs");
+    setTimeout(() => {
+        localStorage.setItem("opponentPokemon", JSON.stringify(opponentPokemon));
+        window.location.href = "pokemonV2_3.html";
+    }, 4000);
 }
 
-// Cambiar entre pantallas
-function goToScreen(screenId) {
-    const screens = document.querySelectorAll(".pantalla");
-    screens.forEach(screen => screen.classList.remove("active"));
-    document.getElementById(screenId).classList.add("active");
-}
-
-// Avanzar al combate
-function iniciarCombate() {
-    goToScreen("pantalla-combate");
-    iniciarLogicaCombate();
-}
+window.onload = showVsScreen;

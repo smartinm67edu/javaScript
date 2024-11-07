@@ -1,31 +1,32 @@
-/* Estilos para VS */
+/* VS Presentation Styles */
 .vs-container {
     display: flex;
-    align-items: center;
     justify-content: center;
-    position: relative;
-    animation: fadeIn 2s;
+    align-items: center;
+    height: 100vh;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.pokemon-display {
+    text-align: center;
+    margin: 20px;
 }
 
 .vs-text {
-    font-size: 50px;
-    font-weight: bold;
+    font-size: 60px;
     color: red;
     animation: scaleUp 1.5s infinite alternate;
-    margin: 0 20px;
 }
 
-/* Animación de zoom para "VS" */
 @keyframes scaleUp {
     from {
         transform: scale(1);
     }
     to {
-        transform: scale(1.3);
+        transform: scale(1.2);
     }
 }
 
-/* Animación para aparición de la pantalla */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -33,13 +34,4 @@
     to {
         opacity: 1;
     }
-}
-
-/* Transiciones en los Pokémon */
-.pokemon-display img {
-    transition: transform 0.5s ease;
-}
-
-.pokemon-display img:hover {
-    transform: scale(1.2);
 }

@@ -151,76 +151,29 @@ const pokemons = [
     { id: 150, name: "Mewtwo", img: "https://projectpokemon.org/images/normal-sprite/mewtwo.gif", types: ["Psychic"], attack: 110, defense: 90, hp: 106 },
     { id: 151, name: "Mew", img: "https://projectpokemon.org/images/normal-sprite/mew.gif", types: ["Psychic"], attack: 100, defense: 100, hp: 100 }
 ];
-// Asignar imágenes shiny y determinar si el Pokémon es shiny al cargar
-// Asignar imágenes shiny
-// Asignar imágenes shiny
 pokemons.forEach(pokemon => {
     pokemon.shinyImg = pokemon.img.replace("normal-sprite", "shiny-sprite");
-    pokemon.isShiny = Math.random() < 0.1; // 10% probabilidad de ser shiny
 });
 
-let playerPokemon = null;
-let opponentPokemon = null;
-
-window.onload = function() {
+function renderPokemons() {
     const pokemonList = document.getElementById("pokemonList");
-
     pokemons.forEach(pokemon => {
-        const imageUrl = pokemon.isShiny ? pokemon.shinyImg : pokemon.img;
-
+        const isShiny = Math.random() < 0.1;
         const pokemonCard = document.createElement("div");
         pokemonCard.className = "pokemon-card";
         pokemonCard.innerHTML = `
-            <h3>${pokemon.name} ${pokemon.isShiny ? "(Shiny)" : ""}</h3>
-            <img src="${imageUrl}" alt="${pokemon.name}">
-            <p>Tipos: ${pokemon.types.join(", ")}</p>
-            <p>Ataque: ${pokemon.attack}</p>
-            <p>Defensa: ${pokemon.defense}</p>
-            <p>HP: ${pokemon.hp}</p>
-            <button onclick="seleccionarPokemon(${pokemon.id})">Seleccionar</button>
+            <h3>${pokemon.name} ${isShiny ? "(Shiny)" : ""}</h3>
+            <img src="${isShiny ? pokemon.shinyImg : pokemon.img}" alt="${pokemon.name}">
+            <p>Tipo: ${pokemon.types.join(", ")}</p>
         `;
+        pokemonCard.onclick = () => seleccionarPokemon(pokemon, isShiny);
         pokemonList.appendChild(pokemonCard);
     });
-};
-
-function seleccionarPokemon(id) {
-    playerPokemon = pokemons.find(p => p.id === id);
-
-    if (playerPokemon) {
-        opponentPokemon = pokemons[Math.floor(Math.random() * pokemons.length)];
-        mostrarPantalla("pantalla-vs");
-        cargarPantallaVS();
-    }
 }
 
-function mostrarPantalla(pantallaId) {
-    document.querySelectorAll(".pantalla").forEach(pantalla => {
-        pantalla.classList.remove("active");
-    });
-
-    document.getElementById(pantallaId).classList.add("active");
+function seleccionarPokemon(pokemon, isShiny) {
+    localStorage.setItem("playerPokemon", JSON.stringify({ ...pokemon, isShiny }));
+    window.location.href = "pokemonV2_2.html";
 }
 
-function cargarPantallaVS() {
-    if (playerPokemon && opponentPokemon) {
-        const playerArea = document.getElementById("playerPokemon");
-        const opponentArea = document.getElementById("opponentPokemon");
-
-        playerArea.innerHTML = `
-            <h3>${playerPokemon.name} ${playerPokemon.isShiny ? "(Shiny)" : ""}</h3>
-            <img src="${playerPokemon.isShiny ? playerPokemon.shinyImg : playerPokemon.img}" alt="${playerPokemon.name}">
-            <p>Tipos: ${playerPokemon.types.join(", ")}</p>
-        `;
-
-        opponentArea.innerHTML = `
-            <h3>${opponentPokemon.name} ${opponentPokemon.isShiny ? "(Shiny)" : ""}</h3>
-            <img src="${opponentPokemon.isShiny ? opponentPokemon.shinyImg : opponentPokemon.img}" alt="${opponentPokemon.name}">
-            <p>Tipos: ${opponentPokemon.types.join(", ")}</p>
-        `;
-    }
-}
-
-function comenzarCombate() {
-    alert("¡Comienza el combate!");
-    // Aquí podrías redirigir a otra pantalla de combate si lo deseas.
-}
+window.onload = renderPokemons;
