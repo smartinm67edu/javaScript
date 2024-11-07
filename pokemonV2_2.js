@@ -1,65 +1,50 @@
-let playerPokemon = null; // Guardará el Pokémon del jugador
-let opponentPokemon = null; // Guardará el Pokémon del oponente
+let selectedPokemon; // Pokémon del jugador
+let opponentPokemon; // Pokémon del oponente
 
-function seleccionarPokemon(id, cardElement) {
-    // Resaltar selección del jugador
-    if (selectedPokemonId !== null) {
-        const previousSelectedCard = document.querySelector(
-            `.pokemon-card[data-id="${selectedPokemonId}"]`
-        );
-        if (previousSelectedCard) {
-            previousSelectedCard.classList.remove("selected");
-        }
-    }
-    selectedPokemonId = id;
-    cardElement.classList.add("selected");
-
-    // Guardar el Pokémon seleccionado
-    playerPokemon = pokemons.find(p => p.id === id);
+// Actualiza la selección del jugador y pasa a VS
+function seleccionarPokemon(id) {
+    selectedPokemon = pokemons.find(p => p.id === id);
+    seleccionarOponente(); // Genera oponente automáticamente
+    mostrarPantallaVS();
 }
 
+// Generar oponente aleatorio
 function seleccionarOponente() {
-    // Selección aleatoria de un oponente
-    const randomIndex = Math.floor(Math.random() * pokemons.length);
-    opponentPokemon = pokemons[randomIndex];
+    opponentPokemon = pokemons[Math.floor(Math.random() * pokemons.length)];
 }
 
-function goToScreen(screenId) {
-    document.querySelectorAll(".pantalla").forEach(screen => {
-        screen.classList.remove("active");
-    });
-    document.getElementById(screenId).classList.add("active");
-}
+// Mostrar pantalla VS
+function mostrarPantallaVS() {
+    const playerDiv = document.getElementById("playerPokemon");
+    const opponentDiv = document.getElementById("opponentPokemon");
 
-function iniciarPresentacionVS() {
-    if (!playerPokemon) {
-        alert("¡Selecciona un Pokémon antes de continuar!");
-        return;
-    }
-
-    seleccionarOponente();
-
-    // Configurar los detalles del enfrentamiento
-    const playerDisplay = document.getElementById("playerPokemon");
-    const opponentDisplay = document.getElementById("opponentPokemon");
-    const vsText = document.querySelector(".vs-text");
-
-    playerDisplay.innerHTML = `
-        <img src="${playerPokemon.img}" alt="${playerPokemon.name}">
-        <h3>${playerPokemon.name}</h3>
-        <p>Tipos: ${playerPokemon.types.join(", ")}</p>
+    // Detalles del Pokémon del jugador
+    playerDiv.innerHTML = `
+        <h3>${selectedPokemon.name}</h3>
+        <img src="${selectedPokemon.img}" alt="${selectedPokemon.name}">
+        <p>Tipos: ${selectedPokemon.types.join(", ")}</p>
     `;
-    opponentDisplay.innerHTML = `
-        <img src="${opponentPokemon.img}" alt="${opponentPokemon.name}">
+
+    // Detalles del Pokémon del oponente
+    opponentDiv.innerHTML = `
         <h3>${opponentPokemon.name}</h3>
+        <img src="${opponentPokemon.img}" alt="${opponentPokemon.name}">
         <p>Tipos: ${opponentPokemon.types.join(", ")}</p>
     `;
 
-    // Añadir animación
-    vsText.classList.add("animate-vs");
-    setTimeout(() => {
-        vsText.classList.remove("animate-vs");
-    }, 2000);
-
+    // Cambiar a la pantalla VS
     goToScreen("pantalla-vs");
+}
+
+// Cambiar entre pantallas
+function goToScreen(screenId) {
+    const screens = document.querySelectorAll(".pantalla");
+    screens.forEach(screen => screen.classList.remove("active"));
+    document.getElementById(screenId).classList.add("active");
+}
+
+// Avanzar al combate
+function iniciarCombate() {
+    goToScreen("pantalla-combate");
+    iniciarLogicaCombate();
 }
