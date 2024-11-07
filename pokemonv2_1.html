@@ -4,17 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Selección de Pokémon</title>
-    <div id="logo">
-        <img src="International_Pokémon_logo.svg.png" alt="">
-    </div>
     <link rel="stylesheet" href="pokemonv2_1.css">
 </head>
 <body>
-    <div class="atributes">
+    <!-- Logo de Pokémon -->
+    <div id="logo">
+        <img src="International_Pokémon_logo.svg.png" alt="Logo Pokémon">
+    </div>
+
+    <!-- Pantalla de Selección -->
+    <div class="pantalla active" id="pantalla-seleccion">
+        <h2>Selecciona tu Pokémon</h2>
         <div class="pokemon-list" id="pokemonList"></div>
         <div id="detallesPokemon"></div>
-        <button onclick="seleccionarOponente()">Seleccionar Oponente</button>
+        <button onclick="iniciarPresentacionVS()">Siguiente</button>
     </div>
+
+    <!-- Pantalla VS -->
+    <div class="pantalla" id="pantalla-vs">
+        <h2>¡Enfrentamiento!</h2>
+        <div class="vs-container">
+            <div class="pokemon-display" id="playerPokemon"></div>
+            <span class="vs-text">VS</span>
+            <div class="pokemon-display" id="opponentPokemon"></div>
+        </div>
+        <button onclick="goToScreen('pantalla-combate')">Comenzar Batalla</button>
+    </div>
+
+    <!-- Pantalla Combate -->
+    <div class="pantalla" id="pantalla-combate">
+        <h2>¡Batalla Pokémon!</h2>
+        <div id="battleField">
+            <div id="battleStats"></div>
+            <button onclick="performAttack()">Atacar</button>
+            <button onclick="performDefend()">Defender</button>
+        </div>
+    </div>
+
     <script src="pokemonv2_1.js"></script>
 </body>
 </html>
