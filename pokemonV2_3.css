@@ -3,7 +3,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa; /* Fondo claro */
+    background-color: #eef2f3; /* Fondo suave y claro */
     color: #333;
     display: flex;
     flex-direction: column;
@@ -19,85 +19,129 @@ h1, h2 {
     margin: 10px 0;
 }
 
+/* Contenedor VS */
 .vs-container {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    width: 100%;
+    justify-content: space-between;
+    width: 90%;
     max-width: 1200px;
     margin: 20px auto;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
 }
 
 /* Estilo de cada Pokémon */
 .pokemon-display {
     background-color: #ffffff;
     border: 2px solid #ddd;
-    border-radius: 10px;
-    padding: 15px;
-    width: 300px;
+    border-radius: 15px;
+    padding: 20px;
+    width: 280px;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pokemon-display:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .pokemon-display img {
     width: 150px;
-    height: auto;
-    margin: 10px 0;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    height: 150px;
+    margin: 15px 0;
+    border-radius: 50%;
+    border: 4px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .pokemon-display h3 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     color: #333;
     margin: 10px 0;
+    font-weight: bold;
 }
 
 .pokemon-display p {
-    margin: 5px 0;
+    margin: 8px 0;
     font-size: 1rem;
     color: #555;
 }
 
 /* Texto "VS" */
 .vs-text {
-    font-size: 3rem;
+    font-size: 4rem;
     font-weight: bold;
-    color: #ff4747; /* Rojo brillante */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    animation: pulse 1.5s infinite;
+    color: #e63946; /* Rojo más llamativo */
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+    animation: vsPulse 1.5s infinite alternate;
 }
 
 /* Animación de "VS" */
-@keyframes pulse {
-    0%, 100% {
+@keyframes vsPulse {
+    from {
         transform: scale(1);
         opacity: 1;
     }
-    50% {
-        transform: scale(1.2);
-        opacity: 0.8;
+    to {
+        transform: scale(1.3);
+        opacity: 0.9;
     }
 }
 
 /* Botón de inicio */
 button {
     margin-top: 20px;
-    padding: 15px 30px;
-    font-size: 1.2rem;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    font-weight: bold;
     color: white;
-    background-color: #4CAF50;
+    background-color: #008CBA;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.3s;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #005f8b;
+    transform: scale(1.05);
 }
 
 button:active {
     transform: scale(0.95);
+}
+
+/* Botón en contenedor */
+button.start-btn {
+    align-self: center;
+    margin-top: 30px;
+}
+
+/* Ajuste responsive */
+@media screen and (max-width: 768px) {
+    .vs-container {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .vs-text {
+        font-size: 3rem;
+        margin: 20px 0;
+    }
+
+    .pokemon-display {
+        width: 100%;
+        max-width: 300px;
+        margin-bottom: 15px;
+    }
+
+    button {
+        width: 80%;
+    }
 }
