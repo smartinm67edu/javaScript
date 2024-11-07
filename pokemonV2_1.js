@@ -151,14 +151,23 @@ const pokemons = [
     { id: 150, name: "Mewtwo", img: "https://projectpokemon.org/images/normal-sprite/mewtwo.gif", types: ["Psychic"], attack: 110, defense: 90, hp: 106 },
     { id: 151, name: "Mew", img: "https://projectpokemon.org/images/normal-sprite/mew.gif", types: ["Psychic"], attack: 100, defense: 100, hp: 100 }
 ];
+// Generar imágenes shiny para cada Pokémon
 pokemons.forEach(pokemon => {
     pokemon.shinyImg = pokemon.img.replace("normal-sprite", "shiny-sprite");
 });
 
+// Renderizar la lista de Pokémon
 function renderPokemons() {
     const pokemonList = document.getElementById("pokemonList");
+
+    // Vaciar la lista antes de renderizar (en caso de recargar)
+    pokemonList.innerHTML = "";
+
     pokemons.forEach(pokemon => {
+        // Determinar si el Pokémon será shiny (10% de probabilidad)
         const isShiny = Math.random() < 0.1;
+
+        // Crear una tarjeta para el Pokémon
         const pokemonCard = document.createElement("div");
         pokemonCard.className = "pokemon-card";
         pokemonCard.innerHTML = `
@@ -166,14 +175,23 @@ function renderPokemons() {
             <img src="${isShiny ? pokemon.shinyImg : pokemon.img}" alt="${pokemon.name}">
             <p>Tipo: ${pokemon.types.join(", ")}</p>
         `;
+
+        // Asignar evento de clic para seleccionar el Pokémon
         pokemonCard.onclick = () => seleccionarPokemon(pokemon, isShiny);
+
+        // Añadir la tarjeta al contenedor de Pokémon
         pokemonList.appendChild(pokemonCard);
     });
 }
 
+// Función para seleccionar un Pokémon
 function seleccionarPokemon(pokemon, isShiny) {
+    // Guardar el Pokémon seleccionado en localStorage, incluyendo si es shiny
     localStorage.setItem("playerPokemon", JSON.stringify({ ...pokemon, isShiny }));
+
+    // Redirigir a la pantalla de presentación VS
     window.location.href = "pokemonV2_2.html";
 }
 
+// Inicializar la renderización cuando la página cargue
 window.onload = renderPokemons;
