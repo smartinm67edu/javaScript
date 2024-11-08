@@ -75,6 +75,10 @@ h1, h2 {
     font-size: 1rem;
     color: #555;
 }
+main{
+    background-image: url(combate.png);
+    background-image: no repeating-linear-gradient();
+}
 
 /* Texto "VS" */
 .vs-text {
