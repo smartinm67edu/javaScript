@@ -10,14 +10,14 @@ body {
     background-color: #7095b6;
 }
 #logo{
+    display: block;
     display: flex;
     justify-content: space-around;
 }
 #logo > img{
-    
     width: 40%;
     padding: 5vh;
-}
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
 
 header {
     text-align: center;
