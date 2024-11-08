@@ -10,6 +10,10 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    background-color: #7095b6;
+}
+#logo > img{
+    width: 40%;
 }
 
 /* Encabezado */
