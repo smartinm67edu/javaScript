@@ -151,10 +151,25 @@ const pokemons = [
     { id: 150, name: "Mewtwo", img: "https://projectpokemon.org/images/normal-sprite/mewtwo.gif", types: ["Psychic"], attack: 110, defense: 90, hp: 106 },
     { id: 151, name: "Mew", img: "https://projectpokemon.org/images/normal-sprite/mew.gif", types: ["Psychic"], attack: 100, defense: 100, hp: 100 }
 ];
+
 // Generar imágenes shiny para cada Pokémon
 pokemons.forEach(pokemon => {
     pokemon.shinyImg = pokemon.img.replace("normal-sprite", "shiny-sprite");
 });
+
+// Guardar datos en cookies
+function setCookie(name, value, days) {
+    const date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    document.cookie = `${name}=${encodeURIComponent(JSON.stringify(value))}; expires=${date.toUTCString()}; path=/`;
+}
+
+// Leer datos desde cookies
+function getCookie(name) {
+    const cookies = document.cookie.split("; ");
+    const cookie = cookies.find(c => c.startsWith(`${name}=`));
+    return cookie ? JSON.parse(decodeURIComponent(cookie.split("=")[1])) : null;
+}
 
 // Renderizar la lista de Pokémon
 function renderPokemons() {
@@ -186,12 +201,46 @@ function renderPokemons() {
 
 // Función para seleccionar un Pokémon
 function seleccionarPokemon(pokemon, isShiny) {
-    // Guardar el Pokémon seleccionado en localStorage, incluyendo si es shiny
-    localStorage.setItem("playerPokemon", JSON.stringify({ ...pokemon, isShiny }));
+    // Guardar el Pokémon seleccionado en cookies
+    setCookie("playerPokemon", { ...pokemon, isShiny }, 1);
+
+    // Asignar un Pokémon oponente aleatoriamente
+    const opponentPokemon = pokemons[Math.floor(Math.random() * pokemons.length)];
+    opponentPokemon.isShiny = Math.random() < 0.1; // 10% de probabilidad de ser Shiny
+    setCookie("opponentPokemon", opponentPokemon, 1);
 
     // Redirigir a la pantalla de presentación VS
     window.location.href = "pokemonV2_2.html";
 }
 
-// Inicializar la renderización cuando la página cargue
+// Mostrar Pokémon en la pantalla VS
+function mostrarVS() {
+    const playerPokemon = getCookie("playerPokemon");
+    const opponentPokemon = getCookie("opponentPokemon");
+
+    const playerContainer = document.getElementById("playerPokemon");
+    const opponentContainer = document.getElementById("opponentPokemon");
+
+    // Mostrar Pokémon del jugador
+    playerContainer.innerHTML = `
+        <h3>${playerPokemon.name} ${playerPokemon.isShiny ? "(Shiny)" : ""}</h3>
+        <img src="${playerPokemon.isShiny ? playerPokemon.shinyImg : playerPokemon.img}" alt="${playerPokemon.name}">
+        <p>Tipo: ${playerPokemon.types.join(", ")}</p>
+        <p>Ataque: ${playerPokemon.attack}</p>
+        <p>Defensa: ${playerPokemon.defense}</p>
+        <p>HP: ${playerPokemon.hp}</p>
+    `;
+
+    // Mostrar Pokémon del oponente
+    opponentContainer.innerHTML = `
+        <h3>${opponentPokemon.name} ${opponentPokemon.isShiny ? "(Shiny)" : ""}</h3>
+        <img src="${opponentPokemon.isShiny ? opponentPokemon.shinyImg : opponentPokemon.img}" alt="${opponentPokemon.name}">
+        <p>Tipo: ${opponentPokemon.types.join(", ")}</p>
+        <p>Ataque: ${opponentPokemon.attack}</p>
+        <p>Defensa: ${opponentPokemon.defense}</p>
+        <p>HP: ${opponentPokemon.hp}</p>
+    `;
+}
+
+// Inicializar la renderización al cargar la página
 window.onload = renderPokemons;

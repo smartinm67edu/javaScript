@@ -1,7 +1,8 @@
+/* Estilo general del cuerpo de la página */
 body {
     display: flex;
-    flex-direction: column; /* Para alinear el contenido en columna */
-    align-items: center; /* Centra horizontalmente */
+    flex-direction: column; 
+    align-items: center; 
     justify-content: center; 
     font-family: calibri ;
     text-align: center;
@@ -11,10 +12,13 @@ body {
     min-height: 100vh; 
     margin: 0 auto; 
 }
-#logo > img{
+
+/* Estilo del logo */
+#logo > img {
     width: 40%;
 }
 
+/* Contenedor para la lista de Pokémon */
 .pokemon-list {
     display: flex;
     flex-wrap: wrap;
@@ -23,10 +27,11 @@ body {
     margin: 20px;
 }
 
+/* Tarjetas individuales de Pokémon */
 .pokemon-card {
-    display: flex; /* Hacer que cada tarjeta sea un contenedor flex */
-    flex-direction: column; /* Orientación vertical de los elementos */
-    justify-content: space-between; /* Espacio entre la imagen y el botón */
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-between; 
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 10px;
@@ -37,13 +42,15 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Imágenes dentro de las tarjetas de Pokémon */
 .pokemon-card img {
     width: 80px;
     height: auto;
 }
 
+/* Botones dentro de las tarjetas de Pokémon */
 .pokemon-card button {
-    margin-top: auto; /* Empuja el botón hacia la parte inferior de la tarjeta */
+    margin-top: auto; 
     padding: 5px;
     background-color: #774caf;
     color: white;
@@ -52,11 +59,14 @@ body {
     cursor: pointer;
 }
 
+/* Atributos dentro de cada tarjeta */
 .atributes {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
+/* Contenedor de VS para mostrar el enfrentamiento */
 .vs-container {
     display: flex;
     align-items: center;
@@ -65,17 +75,20 @@ body {
     max-width: 600px;
 }
 
+/* Área de presentación de cada Pokémon en el enfrentamiento */
 .pokemon-display {
     text-align: center;
     padding: 20px;
 }
 
+/* Texto animado "VS" */
 .vs-text {
     font-size: 48px;
     color: red;
     animation: vs-animation 1s infinite alternate;
 }
 
+/* Animación para el texto "VS" */
 @keyframes vs-animation {
     0% { transform: scale(1); opacity: 1; }
     100% { transform: scale(1.2); opacity: 0.8; }

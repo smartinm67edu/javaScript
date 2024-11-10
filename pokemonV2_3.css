@@ -43,6 +43,17 @@ h1, h2 {
     text-align: center;
     margin: 10px 0;
 }
+/* battleLog */
+#battleLog{
+
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    padding: 3vh;
+}
 
 /* Contenedor VS */
 .vs-container {
@@ -98,10 +109,9 @@ h1, h2 {
 }
 
 /* Barras de vida */
-/* Barras de vida */
 .health-bar-section {
     display: flex;
-    justify-content: space-between; /* Posiciona las barras en los extremos */
+    justify-content: space-between; 
     align-items: center;
     width: 100%;
     max-width: 1200px;
@@ -110,7 +120,7 @@ h1, h2 {
 }
 
 .health-bar-container {
-    width: 40%; /* Ajusta el ancho de las barras */
+    width: 40%; 
     height: 20px;
     background-color: #ddd;
     border-radius: 5px;
@@ -119,17 +129,17 @@ h1, h2 {
 }
 
 .health-bar-container.left {
-    align-self: flex-start; /* Alinea la barra izquierda */
+    align-self: flex-start;
 }
 
 .health-bar-container.right {
-    align-self: flex-end; /* Alinea la barra derecha */
+    align-self: flex-end; 
 }
 
 .health-bar {
     height: 100%;
-    width: 100%; /* Ancho inicial */
-    background-color: #4caf50; /* Verde inicial */
+    width: 100%; 
+    background-color:blueviolet ; 
     transition: width 0.3s ease, background-color 0.3s ease;
 }
 

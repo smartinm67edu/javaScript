@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Batalla Pokémon</title>
     <link rel="stylesheet" href="pokemonV2_1.css">
+    <div id="logo">
+        <img src="International_Pokémon_logo.svg.png" alt="">
+    </div>
 </head>
+
 <body>
     <header>
         <h1>Simulación de Batalla Pokémon</h1>
@@ -16,19 +21,7 @@
         <h2>Selecciona tu Pokémon</h2>
         <div class="pokemon-list" id="pokemonList"></div>
     </section>
-    
-    <!-- Pantalla 2: Presentación VS -->
-    <section id="pantalla-vs" class="pantalla">
-        <h2>¡Preparados para la batalla!</h2>
-        <div class="vs-container">
-            <div class="pokemon-display" id="playerPokemon"></div>
-            <span class="vs-text">VS</span>
-            <div class="pokemon-display" id="opponentPokemon"></div>
-        </div>
-        <button id="startBattle" onclick="comenzarCombate()">Comenzar Batalla</button>
-    </section>
-
     <script src="pokemonV2_1.js"></script>
 </body>
+
 </html>
- 

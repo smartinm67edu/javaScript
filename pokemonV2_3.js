@@ -1,6 +1,13 @@
-// Recuperar los Pokémon seleccionados desde localStorage
-const playerPokemon = JSON.parse(localStorage.getItem("playerPokemon"));
-const opponentPokemon = JSON.parse(localStorage.getItem("opponentPokemon"));
+// Función para leer cookies
+function getCookie(name) {
+    const cookies = document.cookie.split("; ");
+    const cookie = cookies.find(c => c.startsWith(`${name}=`));
+    return cookie ? JSON.parse(decodeURIComponent(cookie.split("=")[1])) : null;
+}
+
+// Recuperar los Pokémon seleccionados desde las cookies
+const playerPokemon = getCookie("playerPokemon");
+const opponentPokemon = getCookie("opponentPokemon");
 
 // Elementos del DOM
 const playerPokemonContainer = document.getElementById("playerPokemon");
