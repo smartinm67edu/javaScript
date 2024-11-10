@@ -25,6 +25,17 @@ function renderPokemon(pokemon, container, hp) {
     `;
 }
 
+// Actualizar las barras de vida
+function updateHealthBar(containerId, currentHP, maxHP) {
+    const healthBar = document.getElementById(`${containerId}-health-bar`);
+    const healthPercentage = (currentHP / maxHP) * 100; // Calcula el porcentaje de vida restante
+    healthBar.style.width = `${Math.max(0, healthPercentage)}%`; // Ajusta el ancho de la barra
+    healthBar.style.backgroundColor = 
+        healthPercentage > 50 ? "#4caf50" : 
+        healthPercentage > 20 ? "#ff9800" : 
+        "#f44336"; // Cambia el color según el porcentaje
+}
+
 // Actualizar el log de combate
 function updateBattleLog(message) {
     const logEntry = document.createElement("p");
@@ -46,6 +57,7 @@ function playerAttack() {
     opponentHP -= damage;
     opponentHP = Math.max(opponentHP, 0); // No permitir HP negativo
     document.getElementById("opponentPokemon-hp").textContent = opponentHP;
+    updateHealthBar("opponentPokemon", opponentHP, opponentPokemon.hp); // Actualiza la barra de vida
     updateBattleLog(`${playerPokemon.name} hizo ${damage} de daño a ${opponentPokemon.name}!`);
     checkBattleOutcome();
     playerTurn = false;
@@ -58,6 +70,7 @@ function playerHeal() {
     const healAmount = Math.floor(playerPokemon.hp * 0.5); // Curar el 50% del HP máximo
     playerHP = Math.min(playerHP + healAmount, playerPokemon.hp); // No exceder el HP máximo
     document.getElementById("playerPokemon-hp").textContent = playerHP;
+    updateHealthBar("playerPokemon", playerHP, playerPokemon.hp); // Actualiza la barra de vida
     updateBattleLog(`${playerPokemon.name} se curó ${healAmount} puntos de vida.`);
     playerTurn = false;
     setTimeout(opponentAttack, 1500); // Esperar 1.5 segundos para el turno del oponente
@@ -70,6 +83,7 @@ function opponentAttack() {
     playerHP -= damage;
     playerHP = Math.max(playerHP, 0); // No permitir HP negativo
     document.getElementById("playerPokemon-hp").textContent = playerHP;
+    updateHealthBar("playerPokemon", playerHP, playerPokemon.hp); // Actualiza la barra de vida
     updateBattleLog(`${opponentPokemon.name} hizo ${damage} de daño a ${playerPokemon.name}!`);
     checkBattleOutcome();
     playerTurn = true;
@@ -100,6 +114,8 @@ function endBattle() {
 function initializeBattle() {
     renderPokemon(playerPokemon, playerPokemonContainer, playerHP);
     renderPokemon(opponentPokemon, opponentPokemonContainer, opponentHP);
+    updateHealthBar("playerPokemon", playerHP, playerPokemon.hp); // Inicializa la barra de vida del jugador
+    updateHealthBar("opponentPokemon", opponentHP, opponentPokemon.hp); // Inicializa la barra de vida del oponente
     updateBattleLog("¡El combate comienza!");
 }
 
