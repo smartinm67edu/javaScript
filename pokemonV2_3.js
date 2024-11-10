@@ -7,7 +7,7 @@ const playerPokemonContainer = document.getElementById("playerPokemon");
 const opponentPokemonContainer = document.getElementById("opponentPokemon");
 const battleLog = document.getElementById("battleLog");
 const attackButton = document.getElementById("attackButton");
-const defendButton = document.getElementById("defendButton");
+const healButton = document.getElementById("healButton");
 
 // Inicializar las estadísticas de combate
 let playerHP = playerPokemon.hp;
@@ -39,7 +39,7 @@ function calculateDamage(attacker, defender) {
     return Math.max(Math.floor(Math.random() * baseDamage + 1), 1); // Daño mínimo de 1
 }
 
-// Turno del jugador
+// Turno del jugador: atacar
 function playerAttack() {
     if (!playerTurn) return; // No es el turno del jugador
     const damage = calculateDamage(playerPokemon, opponentPokemon);
@@ -48,6 +48,17 @@ function playerAttack() {
     document.getElementById("opponentPokemon-hp").textContent = opponentHP;
     updateBattleLog(`${playerPokemon.name} hizo ${damage} de daño a ${opponentPokemon.name}!`);
     checkBattleOutcome();
+    playerTurn = false;
+    setTimeout(opponentAttack, 1500); // Esperar 1.5 segundos para el turno del oponente
+}
+
+// Turno del jugador: curarse
+function playerHeal() {
+    if (!playerTurn) return; // No es el turno del jugador
+    const healAmount = Math.floor(playerPokemon.hp * 0.5); // Curar el 50% del HP máximo
+    playerHP = Math.min(playerHP + healAmount, playerPokemon.hp); // No exceder el HP máximo
+    document.getElementById("playerPokemon-hp").textContent = playerHP;
+    updateBattleLog(`${playerPokemon.name} se curó ${healAmount} puntos de vida.`);
     playerTurn = false;
     setTimeout(opponentAttack, 1500); // Esperar 1.5 segundos para el turno del oponente
 }
@@ -78,7 +89,7 @@ function checkBattleOutcome() {
 // Finalizar la batalla
 function endBattle() {
     attackButton.disabled = true;
-    defendButton.disabled = true;
+    healButton.disabled = true;
     setTimeout(() => {
         alert("Fin del combate");
         window.location.href = "pokemonV2_1.html"; // Volver a la selección
@@ -94,6 +105,7 @@ function initializeBattle() {
 
 // Eventos
 attackButton.addEventListener("click", playerAttack);
+healButton.addEventListener("click", playerHeal);
 
 // Iniciar el combate
 initializeBattle();
