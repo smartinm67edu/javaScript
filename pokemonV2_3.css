@@ -3,18 +3,40 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #eef2f3; /* Fondo suave y claro */
+    background-color: #eef2f3; 
     color: #333;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-color: #7095b6;
+    background-image: url('combate_pokemon.jpg');
+    background-size: cover; 
+    background-position: center;
+    
 }
-#logo > img{
-    width: 40%;
+.vs{
+
+    background-color: #24809e;
+    border-radius: 50px;
+    padding: 4vh;
 }
+/* Contenedor del logo */
+#logo {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    margin: 20px auto; /* Agrega espacio alrededor */
+    text-align: center; /* Asegura que el contenido esté centrado */
+}
+
+/* Estilo de la imagen del logo */
+#logo > img {
+    width: 40%; /* Ajusta el tamaño del logo */
+    max-width: 300px; /* Evita que sea demasiado grande */
+    height: auto; /* Mantén la proporción */
+}
+
 
 /* Encabezado */
 h1, h2 {
@@ -34,7 +56,7 @@ h1, h2 {
     background: #fff;
     border-radius: 15px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    padding: 3vh;
 }
 
 /* Estilo de cada Pokémon */
@@ -76,7 +98,6 @@ h1, h2 {
     color: #555;
 }
 main{
-    background-image: url(combate.png);
     background-image: no repeating-linear-gradient();
 }
 
@@ -87,6 +108,7 @@ main{
     color: #e63946; /* Rojo más llamativo */
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
     animation: vsPulse 1.5s infinite alternate;
+    padding: 3vh;
 }
 
 /* Animación de "VS" */

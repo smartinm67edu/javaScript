@@ -7,29 +7,32 @@
     <link rel="stylesheet" href="pokemonV2_3.css">
 </head>
 <body>
-    <header>
-        <h1>¡Comienza el combate Pokémon!</h1>
-        <div id="logo">
-            <img src="International_Pokémon_logo.svg.png" alt="">
-        </div>
-    </header>
-
-    <main>
-        <!-- Contenedor para mostrar a los Pokémon -->
-        <div class="vs-container">
-            <div id="playerPokemon" class="pokemon-display"></div>
-            <div class="vs-text">VS</div>
-            <div id="opponentPokemon" class="pokemon-display"></div>
-        </div>
-
-        <!-- Controles de batalla -->
-        <div id="battleControls">
-            <button id="attackButton">Atacar</button>
-        </div>
-
-        <!-- Registro de batalla -->
-        <div id="battleLog" class="battle-log"></div>
-    </main>
+    <div class="vs">
+        <header>
+            <h1>¡Comienza el combate Pokémon!</h1>
+            <div id="logo">
+                <img src="International_Pokémon_logo.svg.png" alt="">
+            </div>
+        </header>
+    
+        <main>
+            <!-- Contenedor para mostrar a los Pokémon -->
+            <div class="vs-container">
+                <div id="playerPokemon" class="pokemon-display"></div>
+                <div class="vs-text">VS</div>
+                <div id="opponentPokemon" class="pokemon-display"></div>
+            </div>
+    
+            <!-- Controles de batalla -->
+            <div id="battleControls">
+                <button id="attackButton">Atacar</button>
+            </div>
+    
+            <!-- Registro de batalla -->
+            <div id="battleLog" class="battle-log"></div>
+        </main>
+    </div>
+    
 
     <script src="pokemonV2_3.js"></script>
 </body>
