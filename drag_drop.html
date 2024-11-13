@@ -4,12 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        .contenedores {
+            display: flex;
+            height: 100vh;
+        }
+
+        .container1 {
+            display: flex;
+            padding: 20vh;
+            flex-direction: column;
+
+        }
+        .container1 div {
+            gap: 5vh;
+        }
+
+        .container2 div {
+            text-align: center;
+            display: inline-block;
+            padding: 2vh;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <div class="ropa"></div>
-        <div class="comida"></div>
-        <div class="basura"></div>
+    <div class="contenedores">
+        <div class="container1">
+            <div class="drop-zone">
+                <div class="frutas"><h1>Frutas</h1></div>
+                <div class="animales"><h1>Animales</h1></div>
+                <div class="colores"><H1>Colores</H1></div>
+            </div>
+        </div>
+        
+        <div class="container2">
+            <div class="badges">
+                <div><h3>Manzana</h3></div>
+                <div><h3>Perro</h3></div>
+                <div><h3>Rojo</h3></div>
+                <div><h3>Verde</h3></div>
+                <div><h3>Camello</h3></div>
+                <div><h3>Pera</h3></div>
+            </div>
+        </div>
     </div>
+    
 </body>
 </html>
