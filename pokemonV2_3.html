@@ -7,44 +7,31 @@
     <link rel="stylesheet" href="pokemonV2_3.css">
 </head>
 <body>
-    <div class="vs">
-        <header>
-            <h1>¡Comienza el combate Pokémon!</h1>
-            <div id="logo">
-                <img src="International_Pokémon_logo.svg.png" alt="Logo Pokémon">
-            </div>
-        </header>
-    
-        <main>
-            <!-- Contenedor para mostrar a los Pokémon -->
-            <div class="vs-container">
-                <div id="playerPokemon" class="pokemon-display"></div>
-                <div class="vs-text">VS</div>
-                <div id="opponentPokemon" class="pokemon-display"></div>
-            </div>
-    
-            <!-- Controles de batalla -->
-            <div id="battleControls">
-                <button id="attackButton">Atacar</button>
-                <button id="healButton">Curarse</button>
-            </div>
+    <header>
+        <h1>¡Comienza el combate Pokémon!</h1>
+        <div id="logo">
+            <img src="International_Pokémon_logo.svg.png" alt="">
+        </div>
+    </header>
 
-            <!-- Contenedor para las barras de vida -->
-            <div class="health-bar-section">
-                <!-- Barra de vida del jugador -->
-                <div class="health-bar-container left">
-                    <div class="health-bar" id="playerPokemon-health-bar"></div>
-                </div>
-                <!-- Barra de vida del oponente -->
-                <div class="health-bar-container right">
-                    <div class="health-bar" id="opponentPokemon-health-bar"></div>
-                </div>
-            </div>
+    <main>
 
-            <!-- Registro de batalla -->
-            <div id="battleLog" class="battle-log"></div>
-        </main>
-    </div>
+        <!-- Contenedor para mostrar a los Pokémon -->
+        <div class="vs-container">
+            <div id="playerPokemon" class="pokemon-display"></div>
+            <div class="vs-text">VS</div>
+            <div id="opponentPokemon" class="pokemon-display"></div>
+        </div>
+
+        <!-- Controles de batalla -->
+        <div id="battleControls">
+            <button id="attackButton">Atacar</button>
+        </div>
+
+        <!-- Registro de batalla -->
+        <div id="battleLog" class="battle-log"></div>
+    </main>
+
     <script src="pokemonV2_3.js"></script>
 </body>
 </html>
