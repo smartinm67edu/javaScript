@@ -1,41 +1,43 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Malla de Divs con CSS Grid</title>
-  <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dividir en 3 partes horizontales</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Define columnas adaptativas */
-  gap: 10px; /* Espacio entre los elementos */
-  padding: 20px;
-}
+        body {
+            height: 100vh; /* Ocupa toda la altura de la ventana */
+            display: flex;
+            flex-direction: column; /* Dividir las secciones en columnas */
+        }
 
-/* Estilo de los elementos cuadrados */
-.grid-item {
-  background-color: #4CAF50;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  font-size: 1.5em;
-  border-radius: 5px;
-  aspect-ratio: 1 / 1; /* Mantiene el div cuadrado */
-}
+        .section {
+            flex: 1; /* Ocupa el mismo espacio para cada sección */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
 
-  </style>
+        .section1 {
+            background-color: #007bff;
+        }
+
+        .section2 {
+            background-color: #28a745;
+        }
+    </style>
 </head>
 <body>
-  <div class="grid-container">
-    <div class="grid-item">1</div>
-    <div class="grid-item">2</div>
-    <div class="grid-item">3</div>
-    <div class="grid-item">4</div>
-    <div class="grid-item">5</div>
-    <div class="grid-item">6</div>
-    <div class="grid-item">7</div>
-    <div class="grid-item">8</div>
-    <div class="grid-item">9</div>
-  </div>
+    <div class="section section1">Sección 1</div>
+    <div class="section section2">Sección 2</div>
 </body>
 </html>

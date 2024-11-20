@@ -1,57 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Drag and Drop</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             text-align: center;
+            background-color: bisque;
+        }
+        h1{
+            padding-top: 2vh;
         }
 
         .contenedores {
             display: flex;
             height: 100vh;
+            flex-direction: column;
+            align-items: center;
         }
 
         .container1 {
+            align-items: top;
             display: flex;
             padding: 20vh;
-            flex-direction: column;
-
+            gap: 40vh;
         }
-        .container1 div {
-            gap: 5vh;
+
+        .drop-zone {
+            background-color: chocolate;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 10vh;
+            transition: border-color 0.3s;
+        }
+
+        .drop-zone.dragover {
+            border-color: #66cc66;
+        }
+
+        .drop-zone h1 {
+            margin: 10px 0;
         }
 
         .container2 div {
             text-align: center;
             display: inline-block;
             padding: 2vh;
+            cursor: grab;
+        }
+
+        .draggable {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #de8b58;
+            color: white;
+            border-radius: 5px;
+            margin: 5px;
+        }
+
+        .correcto {
+            background-color: #28a745; 
+        }
+
+        .incorrecto {
+            background-color: #dc3545; 
+        }
+
+        .boton {
+            border: none;
+            border-radius: 5px;
+            background-color: rgb(215, 231, 152);
+            padding: 2vh 3vh;
+            width: 20vh;
         }
     </style>
 </head>
+
 <body>
     <div class="contenedores">
+        <h1>Drag and Drop</h1>
         <div class="container1">
-            <div class="drop-zone">
-                <div class="frutas"><h1>Frutas</h1></div>
-                <div class="animales"><h1>Animales</h1></div>
-                <div class="colores"><H1>Colores</H1></div>
+            <div class="drop-zone frutas" data-category="frutas">
+                <h1>Frutas</h1>
+            </div>
+            <div class="drop-zone animales" data-category="animales">
+                <h1>Animales</h1>
+            </div>
+            <div class="drop-zone colores" data-category="colores">
+                <h1>Colores</h1>
             </div>
         </div>
-        
+
         <div class="container2">
             <div class="badges">
-                <div><h3>Manzana</h3></div>
-                <div><h3>Perro</h3></div>
-                <div><h3>Rojo</h3></div>
-                <div><h3>Verde</h3></div>
-                <div><h3>Camello</h3></div>
-                <div><h3>Pera</h3></div>
+                <div class="draggable" draggable="true" data-category="frutas">Manzana</div>
+                <div class="draggable" draggable="true" data-category="animales">Perro</div>
+                <div class="draggable" draggable="true" data-category="colores">Rojo</div>
+                <div class="draggable" draggable="true" data-category="colores">Verde</div>
+                <div class="draggable" draggable="true" data-category="animales">Camello</div>
+                <div class="draggable" draggable="true" data-category="frutas">Pera</div>
             </div>
         </div>
+
+        <button class="boton" id="check">Comprobar</button>
     </div>
-    
+
+    <script>
+        const draggables = document.querySelectorAll('.draggable');
+        const dropZones = document.querySelectorAll('.drop-zone');
+
+        // Eventos de arrastrar
+        draggables.forEach(draggable => {
+            draggable.addEventListener('dragstart', () => {
+                draggable.classList.add('dragging');
+            });
+
+            draggable.addEventListener('dragend', () => {
+                draggable.classList.remove('dragging');
+            });
+        });
+
+        // Eventos de las zonas de soltado
+        dropZones.forEach(zone => {
+            zone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                zone.classList.add('dragover');
+            });
+
+            zone.addEventListener('dragleave', () => {
+                zone.classList.remove('dragover');
+            });
+
+            zone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const draggedElement = document.querySelector('.dragging');
+                zone.appendChild(draggedElement);
+                zone.classList.remove('dragover');
+            });
+        });
+
+        // Botón de comprobar
+        const checkButton = document.getElementById('check');
+        checkButton.addEventListener('click', () => {
+            draggables.forEach(draggable => {
+                const parentZone = draggable.parentElement;
+                const draggedCategory = draggable.getAttribute('data-category');
+                const dropZoneCategory = parentZone.getAttribute('data-category');
+
+                if (draggedCategory === dropZoneCategory) {
+                    draggable.classList.add('correcto');
+                    draggable.classList.remove('incorrecto');
+                } else {
+                    draggable.classList.add('incorrecto');
+                    draggable.classList.remove('correcto');
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>
