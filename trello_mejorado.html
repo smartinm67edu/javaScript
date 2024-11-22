@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestor de Tareas</title>
     <link rel="stylesheet" href="trello_mejorado.css">
 </head>
+
 <body>
     <div class="task-bar">
         <input type="text" id="new-task" placeholder="Escribe una nueva tarea...">
         <button onclick="addTask()">Agregar</button>
     </div>
     <div class="button-container">
-        <button onclick="setTheme('dark')">Modo Oscuro</button>
-        <button onclick="setTheme('light')">Modo Blanco</button>
-        <button onclick="setTheme('cream')">Modo Crema</button>
+        <button class="dark" onclick="setTheme('dark')">Modo Oscuro</button>
+        <button class="light" onclick="setTheme('light')">Modo Blanco</button>
+        <button class="cream" onclick="setTheme('cream')">Modo Crema</button>
     </div>
 
     <!-- Tablero -->
@@ -34,7 +36,6 @@
     </div>
 
     <script>
-        const draggables = document.querySelectorAll('.draggable');
         const dropZones = document.querySelectorAll('.drop-zone');
 
         // Función para agregar una nueva tarea
@@ -43,57 +44,96 @@
             const taskText = taskInput.value.trim();
 
             if (taskText) {
-                const task = document.createElement('div');
-                task.classList.add('task');
-                task.setAttribute('draggable', 'true');
-                task.textContent = taskText;
-
-                task.addEventListener('dragstart', () => {
-                    task.classList.add('dragging');
-                });
-
-                task.addEventListener('dragend', () => {
-                    task.classList.remove('dragging');
-                });
-
+                const task = createTaskElement(taskText);
                 document.getElementById('pending').appendChild(task);
                 taskInput.value = '';
+                saveTasks();
             }
         }
+
+        function createTaskElement(text) {
+            const task = document.createElement('div');
+            task.classList.add('task');
+            task.setAttribute('draggable', 'true');
+            task.textContent = text;
+
+            task.addEventListener('dragstart', () => {
+                task.classList.add('dragging');
+            });
+
+            task.addEventListener('dragend', () => {
+                task.classList.remove('dragging');
+                saveTasks();
+            });
+
+            return task;
+        }
+
+        // Función para establecer el tema
         function setTheme(theme) {
             const body = document.body;
+            body.className = '';
+            body.classList.add(`${theme}-mode`);
+            setCookie('theme', theme, 7);
+        }
 
-            // Eliminar las clases anteriores
-            body.classList.remove('dark-mode', 'light-mode', 'cream-mode');
+        // Guardar tareas y posiciones en cookies
+        function saveTasks() {
+            const tasks = {};
+            dropZones.forEach(zone => {
+                const taskList = [];
+                zone.querySelectorAll('.task').forEach(task => {
+                    taskList.push(task.textContent);
+                });
+                tasks[zone.id] = taskList;
+            });
+            setCookie('tasks', tasks, 7);
+        }
 
-            // Agregar la clase correspondiente
-            if (theme === 'dark') {
-                body.classList.add('dark-mode');
-            } else if (theme === 'light') {
-                body.classList.add('light-mode');
-            } else if (theme === 'cream') {
-                body.classList.add('cream-mode');
+        // Cargar tareas desde cookies
+        function loadTasks() {
+            const savedTasks = getCookie('tasks');
+            if (savedTasks) {
+                for (const zoneId in savedTasks) {
+                    const zone = document.getElementById(zoneId);
+                    savedTasks[zoneId].forEach(taskText => {
+                        const task = createTaskElement(taskText);
+                        zone.appendChild(task);
+                    });
+                }
             }
         }
 
-        // Eventos de las zonas de soltado
-        dropZones.forEach(zone => {
-            zone.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                zone.classList.add('dragover');
-            });
+        // Guardar datos en cookies
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+            document.cookie = `${name}=${encodeURIComponent(JSON.stringify(value))}; expires=${date.toUTCString()}; path=/`;
+        }
 
-            zone.addEventListener('dragleave', () => {
-                zone.classList.remove('dragover');
-            });
+        // Leer datos desde cookies
+        function getCookie(name) {
+            const cookies = document.cookie.split("; ");
+            const cookie = cookies.find(c => c.startsWith(`${name}=`));
+            return cookie ? JSON.parse(decodeURIComponent(cookie.split("=")[1])) : null;
+        }
 
-            zone.addEventListener('drop', (e) => {
-                e.preventDefault();
-                const draggedElement = document.querySelector('.dragging');
-                zone.appendChild(draggedElement);
-                zone.classList.remove('dragover');
-            });
-        });
+        // Cargar tema desde cookies
+        function loadTheme() {
+            const savedTheme = getCookie('theme');
+            if (savedTheme) {
+                setTheme(savedTheme);
+            }
+        }
+
+        // Inicializar página
+        function init() {
+            loadTheme();
+            loadTasks();
+        }
+
+        init();
     </script>
 </body>
+
 </html>

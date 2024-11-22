@@ -1,15 +1,31 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
+    margin: 3vh;
     padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 3vh;
 }
 
 .button-container {
     display: flex;
     gap: 20px;
+}
+
+.button-container .cream {
+    background-color: #efd39f;
+    border:1px solid #efd39f;
+}
+
+.button-container .light {
+    background-color: #e9ecef;
+    border: 1px solid #ffffff;
+}
+
+.button-container .dark {
+    background-color: #333;
+    border: 1px solid #000000;
 }
 
 .button-container button {
@@ -24,16 +40,18 @@ body {
 .dark-mode {
     background-color: #333;
     color: #000;
-    
+
 
 }
-.dark-mode .drop-zone{
+
+.dark-mode .drop-zone {
     background-color: #797676;
-  
+
 }
-.dark-mode .column{
+
+.dark-mode .column {
     background-color: #5a5858;
-  
+
 }
 
 .light-mode {
@@ -53,7 +71,7 @@ body {
 }
 
 .task-bar input {
-    width: 300px;
+    width: 100vh;
     padding: 10px;
     font-size: 16px;
 }
@@ -74,7 +92,6 @@ body {
 
 .column {
     background-color: #f4f4f4;
-    border: 1px solid #ccc;
     border-radius: 8px;
     width: 300px;
     min-height: 400px;
