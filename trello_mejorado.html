@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Tareas</title>
+    <link rel="stylesheet" href="trello_mejorado.css">
+</head>
+<body>
+    <div class="task-bar">
+        <input type="text" id="new-task" placeholder="Escribe una nueva tarea...">
+        <button onclick="addTask()">Agregar</button>
+    </div>
+    <div class="button-container">
+        <button onclick="setTheme('dark')">Modo Oscuro</button>
+        <button onclick="setTheme('light')">Modo Blanco</button>
+        <button onclick="setTheme('cream')">Modo Crema</button>
+    </div>
+
+    <!-- Tablero -->
+    <div class="board">
+        <div class="column">
+            <h3>Tareas Pendientes</h3>
+            <div class="drop-zone" id="pending"></div>
+        </div>
+        <div class="column">
+            <h3>En Progreso</h3>
+            <div class="drop-zone" id="in-progress"></div>
+        </div>
+        <div class="column">
+            <h3>Terminadas</h3>
+            <div class="drop-zone" id="completed"></div>
+        </div>
+    </div>
+
+    <script>
+        const draggables = document.querySelectorAll('.draggable');
+        const dropZones = document.querySelectorAll('.drop-zone');
+
+        // Función para agregar una nueva tarea
+        function addTask() {
+            const taskInput = document.getElementById('new-task');
+            const taskText = taskInput.value.trim();
+
+            if (taskText) {
+                const task = document.createElement('div');
+                task.classList.add('task');
+                task.setAttribute('draggable', 'true');
+                task.textContent = taskText;
+
+                task.addEventListener('dragstart', () => {
+                    task.classList.add('dragging');
+                });
+
+                task.addEventListener('dragend', () => {
+                    task.classList.remove('dragging');
+                });
+
+                document.getElementById('pending').appendChild(task);
+                taskInput.value = '';
+            }
+        }
+        function setTheme(theme) {
+            const body = document.body;
+
+            // Eliminar las clases anteriores
+            body.classList.remove('dark-mode', 'light-mode', 'cream-mode');
+
+            // Agregar la clase correspondiente
+            if (theme === 'dark') {
+                body.classList.add('dark-mode');
+            } else if (theme === 'light') {
+                body.classList.add('light-mode');
+            } else if (theme === 'cream') {
+                body.classList.add('cream-mode');
+            }
+        }
+
+        // Eventos de las zonas de soltado
+        dropZones.forEach(zone => {
+            zone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                zone.classList.add('dragover');
+            });
+
+            zone.addEventListener('dragleave', () => {
+                zone.classList.remove('dragover');
+            });
+
+            zone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const draggedElement = document.querySelector('.dragging');
+                zone.appendChild(draggedElement);
+                zone.classList.remove('dragover');
+            });
+        });
+    </script>
+</body>
+</html>

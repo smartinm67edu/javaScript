@@ -1,0 +1,110 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.button-container {
+    display: flex;
+    gap: 20px;
+}
+
+.button-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dark-mode {
+    background-color: #333;
+    color: #000;
+    
+
+}
+.dark-mode .drop-zone{
+    background-color: #797676;
+  
+}
+.dark-mode .column{
+    background-color: #5a5858;
+  
+}
+
+.light-mode {
+    background-color: #fff;
+    color: #000;
+}
+
+.cream-mode {
+    background-color: #f5deb3;
+    color: #000;
+}
+
+.task-bar {
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
+}
+
+.task-bar input {
+    width: 300px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.task-bar button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.board {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    padding: 20px;
+}
+
+.column {
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 300px;
+    min-height: 400px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.column h3 {
+    text-align: center;
+}
+
+.drop-zone {
+    flex-grow: 1;
+    padding: 10px;
+    background-color: #e9ecef;
+    border-radius: 8px;
+    overflow-y: auto;
+}
+
+.drop-zone.dragover {
+    background-color: #d1e7dd;
+}
+
+.task {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: grab;
+}
