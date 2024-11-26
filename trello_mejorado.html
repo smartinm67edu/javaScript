@@ -17,6 +17,7 @@
         <button class="dark" onclick="setTheme('dark')">Modo Oscuro</button>
         <button class="light" onclick="setTheme('light')">Modo Blanco</button>
         <button class="cream" onclick="setTheme('cream')">Modo Crema</button>
+        <button onclick="deleteSelectedTask()">Eliminar Tarea Seleccionada</button>
     </div>
 
     <!-- Tablero -->
@@ -36,6 +37,7 @@
     </div>
 
     <script>
+        // Seleccionar zonas de arrastre
         const dropZones = document.querySelectorAll('.drop-zone');
 
         // Función para agregar una nueva tarea
@@ -51,12 +53,20 @@
             }
         }
 
-        function createTaskElement(text) {
+        // Función para crear un elemento de tarea
+        function createTaskElement(taskText) {
             const task = document.createElement('div');
             task.classList.add('task');
             task.setAttribute('draggable', 'true');
-            task.textContent = text;
+            task.textContent = taskText;
 
+            // Agregar eventos de selección para eliminar
+            task.addEventListener('click', () => {
+                document.querySelectorAll('.task').forEach(t => t.classList.remove('selected'));
+                task.classList.add('selected');
+            });
+
+            // Agregar eventos de arrastre
             task.addEventListener('dragstart', () => {
                 task.classList.add('dragging');
             });
@@ -69,6 +79,38 @@
             return task;
         }
 
+        // Función para eliminar la tarea seleccionada
+        function deleteSelectedTask() {
+            const selectedTask = document.querySelector('.task.selected');
+            if (selectedTask) {
+                selectedTask.remove();
+                saveTasks();
+            } else {
+                alert('Por favor, selecciona una tarea para eliminar.');
+            }
+        }
+
+        // Inicializar eventos para zonas de arrastre
+        function initializeDragAndDrop() {
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', e => {
+                    e.preventDefault(); // Permitir soltar
+                    const dragging = document.querySelector('.dragging');
+                    if (dragging) {
+                        zone.appendChild(dragging);
+                    }
+                });
+
+                zone.addEventListener('dragleave', () => {
+                    zone.classList.remove('hover');
+                });
+
+                zone.addEventListener('drop', () => {
+                    saveTasks(); // Guardar tareas después de soltar
+                });
+            });
+        }
+
         // Función para establecer el tema
         function setTheme(theme) {
             const body = document.body;
@@ -77,7 +119,7 @@
             setCookie('theme', theme, 7);
         }
 
-        // Guardar tareas y posiciones en cookies
+        // Guardar tareas en cookies
         function saveTasks() {
             const tasks = {};
             dropZones.forEach(zone => {
@@ -130,6 +172,7 @@
         function init() {
             loadTheme();
             loadTasks();
+            initializeDragAndDrop();
         }
 
         init();
