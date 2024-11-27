@@ -11,16 +11,15 @@
 <body>
     <div class="task-bar">
         <input type="text" id="new-task" placeholder="Escribe una nueva tarea...">
-        <button onclick="addTask()">Agregar</button>
+        <button class="addTask" onclick="addTask()">Agregar</button>
     </div>
     <div class="button-container">
         <button class="dark" onclick="setTheme('dark')">Modo Oscuro</button>
         <button class="light" onclick="setTheme('light')">Modo Blanco</button>
         <button class="cream" onclick="setTheme('cream')">Modo Crema</button>
-        <button onclick="deleteSelectedTask()">Eliminar Tarea Seleccionada</button>
+        <button  class="delette" onclick="deleteSelectedTask()">Borrar tarea</button>
     </div>
 
-    <!-- Tablero -->
     <div class="board">
         <div class="column">
             <h3>Tareas Pendientes</h3>
@@ -37,7 +36,6 @@
     </div>
 
     <script>
-        // Seleccionar zonas de arrastre
         const dropZones = document.querySelectorAll('.drop-zone');
 
         // Función para agregar una nueva tarea
@@ -94,7 +92,7 @@
         function initializeDragAndDrop() {
             dropZones.forEach(zone => {
                 zone.addEventListener('dragover', e => {
-                    e.preventDefault(); // Permitir soltar
+                    e.preventDefault(); 
                     const dragging = document.querySelector('.dragging');
                     if (dragging) {
                         zone.appendChild(dragging);
@@ -106,7 +104,7 @@
                 });
 
                 zone.addEventListener('drop', () => {
-                    saveTasks(); // Guardar tareas después de soltar
+                    saveTasks(); 
                 });
             });
         }

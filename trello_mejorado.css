@@ -17,6 +17,10 @@ body {
     background-color: #efd39f;
     border:1px solid #efd39f;
 }
+.addTask{
+    background-color: green;
+    border-radius: 20px;
+}
 
 .button-container .light {
     background-color: #e9ecef;
@@ -24,8 +28,7 @@ body {
 }
 
 .button-container .dark {
-    background-color: #333;
-    border: 1px solid #000000;
+    background-color: #1a1a1a;
 }
 
 .button-container button {
@@ -35,6 +38,11 @@ body {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+}
+
+.delette{
+    background-color: #fc0404;
+    color: #000;
 }
 
 .dark-mode {
